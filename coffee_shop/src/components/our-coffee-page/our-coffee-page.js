@@ -4,6 +4,7 @@ import Title from '../title-our-coffee-page/title-our-coffee-page'
 import Picture from '../picture-section-our-coffee-page/picture-section'
 import AboutOurBeans from '../about-our-beans-section-our-coffee-section/about-our-beans'
 import BeansLogo from '../beans-logo/beans-logo';
+import SearchPanel from '../search-our-coffee-section/search'
 
 
 import styled from 'styled-components';
@@ -26,6 +27,7 @@ const OurCoffeePage = () => {
                 <AboutOurBeans />
             </StyledSection>
             <BeansLogo />
+            <SearchPanel />
             <Footer />
         </div>
     );
