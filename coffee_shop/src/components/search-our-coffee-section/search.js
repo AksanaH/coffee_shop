@@ -23,6 +23,7 @@ const SearchPanel = () => {
 }
 
 const StyledSearchPanel = styled.div`
+margin: 30px;
     display: flex;
     align-items: center;
     h6{
