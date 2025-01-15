@@ -1,32 +1,24 @@
 import './App.css';
 
-import styled from 'styled-components';
-import NavigationPanel from './components/navbar/navbar';
-import MainInfo from './components/main-info/main-info';
-import AboutUs from './components/about-us-section/about-us';
-import OurBestSection from './components/our-best-section/our-best-section';
-import Footer from './components/footer/footer'
-
+import CoffeeHousePage from './components/coffee-house-page/coffeeHousePage'
+import OurCoffeePage from './components/our-coffee-page/our-coffee-page'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
+
+
+
   return (
-    <div className='app'>
-      <StyledHeader>
-        <NavigationPanel />
-        <MainInfo />
-      </StyledHeader>
-      <AboutUs />
-      <OurBestSection />
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<CoffeeHousePage />} />
+        <Route path='/our_coffee' element={<OurCoffeePage />} />
+
+      </Routes>
+    </Router>
   );
 }
 
 
-const StyledHeader = styled.div`
-  background-image: url('/images/feshly-brewed--latte-coffee.jpg');
-  height: 640px;
-  background-size: cover;
-  width: 100%;
-`;
+
 
 export default App;

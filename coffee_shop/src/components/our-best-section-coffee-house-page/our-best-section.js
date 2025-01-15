@@ -3,21 +3,29 @@ import styled from 'styled-components';
 
 
 
-const OurBestSection = () => {
+const OurBestSection = ({ data }) => {
+
+    const coffeeCards = data.map(item => {
+
+        const { id, ...itemProps } = item;
+
+        return (
+            <CoffeeItem key={id} {...itemProps} />
+        )
+    })
+
     return (
         <StyledBestSection>
             <h3>Our best</h3>
             <CoffeeItemsWrapper>
-                <CoffeeItem />
-                <CoffeeItem />
-                <CoffeeItem />
+                {coffeeCards}
             </CoffeeItemsWrapper>
         </StyledBestSection>
     )
 }
 
 const StyledBestSection = styled.div`
-  height: 400px;
+  height: 500px;
   background-image: url('/images/background.jpg');
   background-size: cover;
   padding-top: 50px;
@@ -30,7 +38,9 @@ const CoffeeItemsWrapper = styled.div`
     display: flex;
     justify-content:space-around;
     width: 80%;
-   
+   img{
+    height: 180px;
+   }
 `;
 
 export default OurBestSection;
