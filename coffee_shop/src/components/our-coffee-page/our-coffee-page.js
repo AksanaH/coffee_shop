@@ -1,3 +1,4 @@
+import { Component } from 'react';
 import NavigationPanel from '../navbar/navbar';
 import Footer from '../footer/footer'
 import Title from '../title-our-coffee-page/title-our-coffee-page'
@@ -7,38 +8,62 @@ import BeansLogo from '../beans-logo/beans-logo';
 import SearchPanel from '../search-our-coffee-section/search';
 import Filter from '../filter-our-coffee-section/filter';
 import OurCoffeeTypes from '../our-coffes-types-our-coffee-page/our-coffees-types'
-
 import styled from 'styled-components';
 
 
-const OurCoffeePage = () => {
-    const dataTypesCoffee = [
-        { name: "Solimo Coffee Beans 2lb", price: 15 + '$', src: "/images/solimo.jpg", county: "Colombia", id: 1 },
-        { name: "Presto Coffee Beans 2lb", price: 11.5 + '$', src: "/images/presto.jpg", county: "Colombia", id: 2 },
-        { name: "Aromisto Coffee Beans 2lb", price: 12.75 + '$', src: "/images/aromisto.jpg", county: "Brazil", id: 3 },
-        { name: "Lovemo Coffee Beans 2lb", price: 10.95 + '$', src: "/images/lovemo.jpg", county: "Costa Rica", id: 4 },
-        { name: "Rocket Coffee Beans 2lb", price: 12.5 + '$', src: "/images/rocket.jpg", county: "Costa Rica", id: 5 },
-        { name: "Amino Coffee Beans 2lb", price: 15.65 + '$', src: "/images/amino.jpg", county: "Costa Rica", id: 6 },
-    ];
-    return (
-        <div className='app'>
-            <StyledHeader>
-                <NavigationPanel />
-                <Title />
-            </StyledHeader>
-            <StyledSection>
-                <Picture />
-                <AboutOurBeans />
-            </StyledSection>
-            <BeansLogo />
-            <StyledFilterWithSearch>
-                <SearchPanel />
-                <Filter />
-            </StyledFilterWithSearch>
-            <OurCoffeeTypes dataTypesCoffee={dataTypesCoffee} />
-            <Footer />
-        </div>
-    );
+class OurCoffeePage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataTypesCoffee: [
+                { name: "Solimo Coffee Beans 2lb", price: 15 + '$', src: "/images/solimo.jpg", county: "Colombia", id: 1 },
+                { name: "Presto Coffee Beans 2lb", price: 11.5 + '$', src: "/images/presto.jpg", county: "Colombia", id: 2 },
+                { name: "Aromisto Coffee Beans 2lb", price: 12.75 + '$', src: "/images/aromisto.jpg", county: "Brazil", id: 3 },
+                { name: "Lovemo Coffee Beans 2lb", price: 10.95 + '$', src: "/images/lovemo.jpg", county: "Costa Rica", id: 4 },
+                { name: "Rocket Coffee Beans 2lb", price: 12.5 + '$', src: "/images/rocket.jpg", county: "Costa Rica", id: 5 },
+                { name: "Amino Coffee Beans 2lb", price: 15.65 + '$', src: "/images/amino.jpg", county: "Costa Rica", id: 6 },
+            ],
+            term: ''
+        }
+    }
+
+    searchCoffee = (items, term) => {
+        if (term.trim().length === 0) {
+            return items;
+        }
+        const lowercasedTerm = term.toLowerCase();
+        return items.filter(item => {
+            return item.name.toLowerCase().includes(lowercasedTerm);
+        })
+    }
+
+    onUpdateSearch = (term) => {
+        this.setState({ term });
+    }
+
+    render() {
+        const { dataTypesCoffee, term } = this.state;
+        const visibleData = this.searchCoffee(dataTypesCoffee, term);
+        return (
+            <div className='app'>
+                <StyledHeader>
+                    <NavigationPanel />
+                    <Title />
+                </StyledHeader>
+                <StyledSection>
+                    <Picture />
+                    <AboutOurBeans />
+                </StyledSection>
+                <BeansLogo />
+                <StyledFilterWithSearch>
+                    <SearchPanel onUpdateSearch={this.onUpdateSearch} />
+                    <Filter />
+                </StyledFilterWithSearch>
+                <OurCoffeeTypes dataTypesCoffee={visibleData} />
+                <Footer />
+            </div>
+        );
+    }
 };
 
 const StyledHeader = styled.div`
