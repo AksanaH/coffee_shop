@@ -1,13 +1,25 @@
 import Button from 'react-bootstrap/Button';
 import styled from 'styled-components';
 
-const Filter = () => {
+const Filter = (props) => {
+    const buttonData = [
+        { name: 'all', label: 'All' },
+        { name: 'colombia', label: 'Colombia' },
+        { name: 'costarica', label: 'Costa Rica' },
+        { name: 'brazil', label: 'Brazil' },
+
+    ];
+
+    const buttons = buttonData.map(({ name, label }) => {
+        return (
+            <Button variant="light" key={name} onClick={() => props.onFilterSelect(name)}>{label}</Button>
+        )
+    })
+
     return (
         <StyledFilter>
             <h6>Our filter</h6>
-            <Button variant="light">Colombia</Button>
-            <Button variant="light">Brazil</Button>
-            <Button variant="light">Costa Rica</Button>
+            {buttons}
         </StyledFilter>
     )
 }

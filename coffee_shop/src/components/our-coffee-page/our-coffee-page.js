@@ -16,14 +16,15 @@ class OurCoffeePage extends Component {
         super(props);
         this.state = {
             dataTypesCoffee: [
-                { name: "Solimo Coffee Beans 2lb", price: 15 + '$', src: "/images/solimo.jpg", county: "Colombia", id: 1 },
-                { name: "Presto Coffee Beans 2lb", price: 11.5 + '$', src: "/images/presto.jpg", county: "Colombia", id: 2 },
-                { name: "Aromisto Coffee Beans 2lb", price: 12.75 + '$', src: "/images/aromisto.jpg", county: "Brazil", id: 3 },
-                { name: "Lovemo Coffee Beans 2lb", price: 10.95 + '$', src: "/images/lovemo.jpg", county: "Costa Rica", id: 4 },
-                { name: "Rocket Coffee Beans 2lb", price: 12.5 + '$', src: "/images/rocket.jpg", county: "Costa Rica", id: 5 },
-                { name: "Amino Coffee Beans 2lb", price: 15.65 + '$', src: "/images/amino.jpg", county: "Costa Rica", id: 6 },
+                { name: "Solimo Coffee Beans 2lb", price: 15 + '$', src: "/images/solimo.jpg", country: "Colombia", id: 1 },
+                { name: "Presto Coffee Beans 2lb", price: 11.5 + '$', src: "/images/presto.jpg", country: "Colombia", id: 2 },
+                { name: "Aromisto Coffee Beans 2lb", price: 12.75 + '$', src: "/images/aromisto.jpg", country: "Brazil", id: 3 },
+                { name: "Lovemo Coffee Beans 2lb", price: 10.95 + '$', src: "/images/lovemo.jpg", country: "Costa Rica", id: 4 },
+                { name: "Rocket Coffee Beans 2lb", price: 12.5 + '$', src: "/images/rocket.jpg", country: "Colombia", id: 5 },
+                { name: "Amino Coffee Beans 2lb", price: 15.65 + '$', src: "/images/amino.jpg", country: "Costa Rica", id: 6 },
             ],
-            term: ''
+            term: '',
+            filter: ''
         }
     }
 
@@ -41,9 +42,27 @@ class OurCoffeePage extends Component {
         this.setState({ term });
     }
 
+    filterPost = (items, filter) => {
+        switch (filter) {
+            case 'colombia':
+                return items.filter(item => item.country === "Colombia");
+            case 'costarica':
+                return items.filter(item => item.country === "Costa Rica");
+            case 'brazil':
+                return items.filter(item => item.country === "Brazil");
+            default:
+                return items
+
+        }
+    }
+
+    onFilterSelect = (filter) => {
+        this.setState({ filter });
+    }
+
     render() {
-        const { dataTypesCoffee, term } = this.state;
-        const visibleData = this.searchCoffee(dataTypesCoffee, term);
+        const { dataTypesCoffee, term, filter } = this.state;
+        const visibleData = this.filterPost(this.searchCoffee(dataTypesCoffee, term), filter);
         return (
             <div className='app'>
                 <StyledHeader>
@@ -57,7 +76,7 @@ class OurCoffeePage extends Component {
                 <BeansLogo />
                 <StyledFilterWithSearch>
                     <SearchPanel onUpdateSearch={this.onUpdateSearch} />
-                    <Filter />
+                    <Filter filter={filter} onFilterSelect={this.onFilterSelect} />
                 </StyledFilterWithSearch>
                 <OurCoffeeTypes dataTypesCoffee={visibleData} />
                 <Footer />
@@ -86,7 +105,6 @@ const StyledSection = styled.div`
 
 const StyledFilterWithSearch = styled.div`
     display: flex;
-    //width: 60%;
     justify-content: center;
     align-items: center;
     margin: 0 auto;

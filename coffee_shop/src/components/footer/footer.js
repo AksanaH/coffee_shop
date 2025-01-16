@@ -2,7 +2,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import styled from 'styled-components';
-import BeansLogo from '../beans-logo/beans-logo'
+import BeansLogo from '../beans-logo/beans-logo';
+import { Link } from 'react-router-dom';
 
 
 const Footer = () => {
@@ -12,8 +13,8 @@ const Footer = () => {
                 <Container>
                     <StyledBeans className="beans" src="../images/two_beans.png" alt="beans" />
                     <Nav className="me-auto">
-                        <Nav.Link href="#coffee_house">Coffee house</Nav.Link>
-                        <Nav.Link href="#our_coffee">Our coffee</Nav.Link>
+                        <Nav.Link as={Link} to="/">Coffee house</Nav.Link>
+                        <Nav.Link as={Link} to="/our_coffee">Our coffee</Nav.Link>
                         <Nav.Link href="#for_your_pleasure">For your pleasure</Nav.Link>
                     </Nav>
                 </Container>
